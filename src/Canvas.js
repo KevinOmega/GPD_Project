@@ -46,6 +46,9 @@ const Canvas = () => {
         .data(data)
         .enter()
         .append("rect")
+        .attr("class", "bar")
+        .attr("data-date", (d) => d[0])
+        .attr("data-gpd", (d) => d[1])
         .attr("width", (canvasWidth - padding) / data.length)
         .attr("height", (d) => {
           console.log(yScale(d[1]), d[1]);
@@ -64,10 +67,14 @@ const Canvas = () => {
       svg
         .append("g")
         .style("transform", `translateY(${canvasHeight - padding + 10}px)`)
+        .attr("id", "x-axis")
+        .attr("class", "tick")
         .call(xAxis);
       svg
         .append("g")
         .style("transform", `translateX(${padding - 10}px)`)
+        .attr("id", "y-axis")
+        .attr("class", "tick")
         .call(yAxis);
     }
   }, [data, drawed]);
