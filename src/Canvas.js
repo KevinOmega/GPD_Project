@@ -62,9 +62,8 @@ const Canvas = () => {
       const tooltip = d3
         .select("#canvas-container")
         .append("div")
-        .attr("id", "tooltip");
-      // .style("opacity", 0);
-      console.log(tooltip);
+        .attr("id", "tooltip")
+        .style("opacity", 0);
       svg
         .selectAll("rect")
         .data(data)
@@ -87,14 +86,19 @@ const Canvas = () => {
           tooltip
             .html(
               d[0] +
+                " " +
+                d[2] +
                 "<br>" +
                 "$" +
                 d[1].toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, "$1,") +
                 " Billion"
             )
             .attr("data-date", d[0])
-            .style("left", data.indexOf(d) * barWidth + padding  + "px")
-            .style("transform", "translateX(60px)");
+            .style("opacity", "0.9")
+            .style("left", data.indexOf(d) * barWidth + padding + "px");
+        })
+        .on("mouseout", (e, d) => {
+          tooltip.style("opacity", 0);
         });
 
       const xAxis = d3.axisBottom(xScale);
